@@ -1,6 +1,9 @@
 import React from "react";
 import Auth from "../../utils/auth";
 import { Link } from "react-router-dom";
+import img1 from "./PokeMart.png"
+import img2 from "./PokeText.png"
+
 
 function Nav() {
 
@@ -14,7 +17,6 @@ function Nav() {
             </Link>
           </li>
           <li className="mx-1">
-            {/* this is not using the Link component to logout or user and then refresh the application to the start */}
             <a href="/" onClick={() => Auth.logout()}>
               Logout
             </a>
@@ -43,8 +45,20 @@ function Nav() {
     <header className="flex-row px-1">
       <h1>
         <Link to="/">
-          <span role="img" aria-label="shopping bag">🛍️</span>
-          -Shop-Shop
+        <img
+        alt=""
+        src={img1}
+        width="60"
+        height="60"
+        className="d-inline-block align-top "
+        />
+        <img
+        alt=""
+        src={img2}
+        width="230"
+        height="70"
+        className="d-inline-block align-top "
+        />
         </Link>
       </h1>
 

@@ -1,5 +1,5 @@
 import {
-  UPDATE_PRODUCTS,
+  UPDATE_ITEMS,
   UPDATE_CATEGORIES,
   UPDATE_CURRENT_CATEGORY,
   ADD_TO_CART,
@@ -13,13 +13,11 @@ import { useReducer } from "react";
 
 export const reducer = (state, action) => {
   switch (action.type) {
-    // if action type value is the value of `UPDATE_PRODUCTS`, return a new state object with an updated products array
-    case UPDATE_PRODUCTS:
+    case UPDATE_ITEMS:
       return {
         ...state,
-        products: [...action.products],
+        items: [...action.items],
       };
-    // if action type value is the value of `UPDATE_CATEGORIES`, return a new state object with an updated categories array
     case UPDATE_CATEGORIES:
       return {
         ...state,
@@ -34,16 +32,16 @@ export const reducer = (state, action) => {
       return {
         ...state,
         cartOpen: true,
-        cart: [...state.cart, action.product],
+        cart: [...state.cart, action.item],
       };
     case ADD_MULTIPLE_TO_CART:
       return {
         ...state,
-        cart: [...state.cart, ...action.products],
+        cart: [...state.cart, ...action.items],
       };
     case REMOVE_FROM_CART:
-      let newState = state.cart.filter((product) => {
-        return product._id !== action._id;
+      let newState = state.cart.filter((item) => {
+        return item._id !== action._id;
       });
 
       return {
@@ -55,11 +53,11 @@ export const reducer = (state, action) => {
       return {
         ...state,
         cartOpen: true,
-        cart: state.cart.map((product) => {
-          if (action._id === product._id) {
-            product.purchaseQuantity = action.purchaseQuantity;
+        cart: state.cart.map((item) => {
+          if (action._id === item._id) {
+            item.purchaseQuantity = action.purchaseQuantity;
           }
-          return product;
+          return item;
         }),
       };
     case CLEAR_CART:
@@ -79,6 +77,6 @@ export const reducer = (state, action) => {
   }
 };
 
-export function useProductReducer(initialState) {
+export function useItemReducer(initialState) {
   return useReducer(reducer, initialState);
 }

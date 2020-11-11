@@ -10,12 +10,12 @@ function Success() {
   useEffect(() => {
     async function saveOrder() {
       const cart = await idbPromise("cart", "get");
-      const products = cart.map((item) => item._id);
-      if (products.length) {
-        const { data } = await addOrder({ variables: { products } });
-        const productData = data.addOrder.products;
+      const items = cart.map((item) => item._id);
+      if (items.length) {
+        const { data } = await addOrder({ variables: { items } });
+        const itemData = data.addOrder.items;
 
-        productData.forEach((item) => {
+        itemData.forEach((item) => {
           idbPromise("cart", "delete", item);
         });
         setshouldRedirect(true)

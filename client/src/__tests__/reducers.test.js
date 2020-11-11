@@ -2,7 +2,7 @@ import { reducer } from '../utils/reducers';
 
 // import our actions
 import {
-  UPDATE_PRODUCTS,
+  UPDATE_ITEMS,
   UPDATE_CATEGORIES,
   UPDATE_CURRENT_CATEGORY,
   ADD_TO_CART,
@@ -13,10 +13,8 @@ import {
   TOGGLE_CART
 } from '../utils/actions';
 
-  
-  // create a sample of what our global state will look like
   const initialState = {
-    products: [],
+    items: [],
     categories: [{ name: 'Food' }],
     currentCategory: '1',
     cart: [
@@ -35,14 +33,14 @@ import {
   };
   
   
-  test('UPDATE_PRODUCTS', () => {
+  test('UPDATE_ITEMS', () => {
     let newState = reducer(initialState, {
-      type: UPDATE_PRODUCTS,
-      products: [{}, {}]
+      type: UPDATE_ITEMS,
+      items: [{}, {}]
     });
   
-    expect(newState.products.length).toBe(2);
-    expect(initialState.products.length).toBe(0);
+    expect(newState.items.length).toBe(2);
+    expect(initialState.items.length).toBe(0);
   });
 
   test('UPDATE_CATEGORIES', () => {
@@ -68,7 +66,7 @@ import {
   test('ADD_TO_CART', () => {
     let newState = reducer(initialState, {
       type: ADD_TO_CART,
-      product: { purchaseQuantity: 1 }
+      item: { purchaseQuantity: 1 }
     });
   
     expect(newState.cart.length).toBe(3);
@@ -78,7 +76,7 @@ import {
   test('ADD_MULTIPLE_TO_CART', () => {
     let newState = reducer(initialState, {
       type: ADD_MULTIPLE_TO_CART,
-      products: [{}, {}]
+      items: [{}, {}]
     });
   
     expect(newState.cart.length).toBe(4);
@@ -91,10 +89,8 @@ import {
       _id: '1'
     });
   
-    // cart is still open
     expect(newState1.cartOpen).toBe(true);
   
-    // the second item should now be the first
     expect(newState1.cart.length).toBe(1);
     expect(newState1.cart[0]._id).toBe('2');
   
@@ -103,7 +99,6 @@ import {
       _id: '2'
     });
   
-    // cart is empty and closed
     expect(newState2.cartOpen).toBe(false);
     expect(newState2.cart.length).toBe(0);
   
