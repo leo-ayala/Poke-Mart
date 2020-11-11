@@ -1,5 +1,5 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User, Product, Category, Order } = require("../models");
+const { User, Item, Category, Order } = require("../models");
 const { signToken } = require("../utils/auth");
 const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
 
@@ -8,7 +8,7 @@ const resolvers = {
     categories: async () => {
       return await Category.find();
     },
-    products: async (parent, { category, name }) => {
+    items: async (parent, { category, name }) => {
       const params = {};
 
       if (category) {
@@ -21,15 +21,15 @@ const resolvers = {
         };
       }
 
-      return await Product.find(params).populate("category");
+      return await Item.find(params).populate("category");
     },
-    product: async (parent, { _id }) => {
-      return await Product.findById(_id).populate("category");
+    item: async (parent, { _id }) => {
+      return await Item.findById(_id).populate("category");
     },
     user: async (parent, args, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id).populate({
-          path: "orders.products",
+          path: "orders.items",
           populate: "category",
         });
 
@@ -43,7 +43,7 @@ const resolvers = {
     order: async (parent, { _id }, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id).populate({
-          path: "orders.products",
+          path: "orders.items",
           populate: "category",
         });
 
@@ -54,22 +54,22 @@ const resolvers = {
     },
     checkout: async (parent, args, context) => {
       const url = new URL(context.headers.referer).origin;
-      const order = new Order({ products: args.products });
-      const { products } = await order.populate("products").execPopulate();
+      const order = new Order({ items: args.items });
+      const { items } = await order.populate("items").execPopulate();
       const line_items = [];
 
-      for (let i = 0; i < products.length; i++) {
-        // generate product id
-        const product = await stripe.products.create({
-          name: products[i].name,
-          description: products[i].description,
-          images: [`${url}/images/${products[i].image}`]
+      for (let i = 0; i < items.length; i++) {
+        // generate item id
+        const item = await stripe.items.create({
+          name: items[i].name,
+          description: items[i].description,
+          images: [`${url}/images/${items[i].image}`]
         });
 
-        // generate price id using the product id
+        // generate price id using the item id
         const price = await stripe.prices.create({
-          product: product.id,
-          unit_amount: products[i].price * 100,
+          item: item.id,
+          unit_amount: items[i].price * 100,
           currency: "usd",
         });
 
@@ -99,10 +99,10 @@ const resolvers = {
 
       return { token, user };
     },
-    addOrder: async (parent, { products }, context) => {
+    addOrder: async (parent, { items }, context) => {
       console.log(context);
       if (context.user) {
-        const order = new Order({ products });
+        const order = new Order({ items });
 
         await User.findByIdAndUpdate(context.user._id, {
           $push: { orders: order },
@@ -122,10 +122,10 @@ const resolvers = {
 
       throw new AuthenticationError("Not logged in");
     },
-    updateProduct: async (parent, { _id, quantity }) => {
+    updateItem: async (parent, { _id, quantity }) => {
       const decrement = Math.abs(quantity) * -1;
 
-      return await Product.findByIdAndUpdate(
+      return await Item.findByIdAndUpdate(
         _id,
         { $inc: { quantity: decrement } },
         { new: true }
