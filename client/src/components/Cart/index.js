@@ -8,6 +8,9 @@ import { idbPromise } from "../../utils/helpers";
 import { QUERY_CHECKOUT } from "../../utils/queries";
 import { loadStripe } from "@stripe/stripe-js";
 import { useLazyQuery } from '@apollo/react-hooks';
+import img from './pikachu.gif'
+import Image from "react-bootstrap/Image";
+
 
 const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
 
@@ -64,7 +67,7 @@ const Cart = () => {
     return (
       <div className="cart-closed" onClick={toggleCart}>
         <span role="img" aria-label="trash">
-          🛒
+        <Image alt="" src={img} width="65" height="65" />
         </span>
       </div>
     );

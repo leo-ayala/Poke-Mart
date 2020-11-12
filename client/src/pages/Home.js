@@ -1,18 +1,16 @@
 import React from "react";
+// import Cart from "../components/Cart";
 import ItemList from "../components/ItemList";
 import CategoryMenu from "../components/CategoryMenu";
-import Cart from '../components/Cart';
-
 
 const Home = () => {
   return (
     <div className="container">
       <CategoryMenu />
       <ItemList />
-      <Cart />
+      {/* <Cart /> */}
     </div>
   );
 };
-
 
 export default Home;

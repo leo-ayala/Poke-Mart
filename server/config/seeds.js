@@ -1,6 +1,5 @@
 const db = require("./connection");
 const { User, Item, Category } = require("../models");
-var commaNumber = require("comma-number");
 
 db.once("open", async () => {
   await Category.deleteMany();
@@ -8,7 +7,7 @@ db.once("open", async () => {
   const categories = await Category.insertMany([
     { name: "Potions" },
     { name: "Pokeballs" },
-    { name: "Cures" },
+    { name: "Status" },
     { name: "Repels" },
     { name: "Miscellaneous" },
   ]);
@@ -16,13 +15,14 @@ db.once("open", async () => {
   console.log("categories have been created!");
 
   await Item.deleteMany();
+  console.log("old items are gone!");
 
   const items = await Item.insertMany([
     {
       name: "Potion",
       description:
         "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
-      image: "cookie-tin.jpg",
+      image: "potion1.png",
       category: categories[0]._id,
       price: 300,
       quantity: 100,
@@ -31,7 +31,7 @@ db.once("open", async () => {
       name: "Super Potion",
       description:
         "Praesent sed lacinia mauris. Nulla congue nibh magna, at feugiat nunc scelerisque quis. Donec iaculis rutrum vulputate. Suspendisse lectus sem, vulputate ac lectus sed, placerat consequat dui.",
-      image: "canned-coffee.jpg",
+      image: "potion2.png",
       category: categories[0]._id,
       price: 700,
       quantity: 100,
@@ -41,8 +41,8 @@ db.once("open", async () => {
       category: categories[0]._id,
       description:
         "Donec volutpat erat erat, sit amet gravida justo sodales in. Phasellus tempus euismod urna. Proin ultrices nisi ut ipsum congue, vitae porttitor libero suscipit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam lacinia a nisi non congue.",
-      image: "toilet-paper.jpg",
-      price: commaNumber(1200),
+      image: "potion3.png",
+      price: 1200,
       quantity: 20,
     },
     {
@@ -50,8 +50,8 @@ db.once("open", async () => {
       category: categories[0]._id,
       description:
         "Praesent placerat, odio vel euismod venenatis, lectus arcu laoreet felis, et fringilla sapien turpis vestibulum nisl.",
-      image: "soap.jpg",
-      price: commaNumber(2500),
+      image: "potion4.png",
+      price: 2500,
       quantity: 50,
     },
     {
@@ -59,7 +59,7 @@ db.once("open", async () => {
       category: categories[1]._id,
       description:
         "Vestibulum risus metus, luctus non tortor quis, tincidunt consectetur ex. Nullam vitae lobortis ligula, ut sagittis massa. Curabitur consectetur, tellus at pulvinar venenatis, erat augue cursus erat, eu ullamcorper eros lectus ultrices ipsum. Integer rutrum, augue vitae auctor venenatis, turpis turpis elementum orci, at sagittis risus mi a leo.",
-      image: "pokeball.png",
+      image: "pokeb1.png",
       price: 200,
       quantity: 500,
     },
@@ -68,7 +68,7 @@ db.once("open", async () => {
       category: categories[1]._id,
       description:
         "In sodales, ipsum quis ultricies porttitor, tellus urna aliquam arcu, eget venenatis purus ligula ut nisi. Fusce ut felis dolor. Mauris justo ante, aliquet non tempus in, tempus ac lorem. Aliquam lacinia dolor eu sem eleifend ultrices. Etiam mattis metus metus. Sed ligula dui, placerat non turpis vitae, suscipit volutpat elit. Phasellus sagittis, diam elementum suscipit fringilla, libero mauris scelerisque ex, ac interdum diam erat non sapien.",
-      image: "tablet.jpg",
+      image: "pokeb2.png",
       price: 600,
       quantity: 300,
     },
@@ -77,8 +77,8 @@ db.once("open", async () => {
       category: categories[1]._id,
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ornare diam quis eleifend rutrum. Aliquam nulla est, volutpat non enim nec, pharetra gravida augue. Donec vitae dictum neque. Pellentesque arcu lorem, fringilla non ligula ac, tristique bibendum erat. Ut a semper nibh. Quisque a mi et mi tempor ultricies. Maecenas eu ipsum eu enim hendrerit accumsan at euismod urna.",
-      image: "bedtime-book.jpg",
-      price: commaNumber(1200),
+      image: "pokeb3.png",
+      price: 1200,
       quantity: 100,
     },
     {
@@ -86,8 +86,8 @@ db.once("open", async () => {
       category: categories[1]._id,
       description:
         "Ut vulputate hendrerit nibh, a placerat elit cursus interdum.",
-      image: "spinning-top.jpg",
-      price: commaNumber(10000000),
+      image: "pokeb4.png",
+      price: 10000000,
       quantity: 1,
     },
     {
@@ -95,17 +95,8 @@ db.once("open", async () => {
       category: categories[2]._id,
       description:
         "Sed a mauris condimentum, elementum enim in, rhoncus dui. Phasellus lobortis leo odio, sit amet pharetra turpis porta quis.",
-      image: "plastic-horses.jpg",
+      image: "antidote.png",
       price: 100,
-      quantity: 200,
-    },
-    {
-      name: "Paralyze Heal",
-      category: categories[2]._id,
-      description:
-        "Vestibulum et erat finibus erat suscipit vulputate sed vitae dui. Ut laoreet tellus sit amet justo bibendum ultrices. Donec vitae felis vestibulum, congue augue eu, finibus turpis.",
-      image: "teddy-bear.jpg",
-      price: 200,
       quantity: 200,
     },
     {
@@ -113,25 +104,17 @@ db.once("open", async () => {
       category: categories[2]._id,
       description:
         "Morbi consectetur viverra urna, eu fringilla turpis faucibus sit amet. Suspendisse potenti. Donec at dui ac sapien eleifend hendrerit vel sit amet lectus.",
-      image: "alphabet-blocks.jpg",
+      image: "awakening.png",
       price: 250,
       quantity: 200,
     },
-    {
-      name: "Burn Heal",
-      category: categories[2]._id,
-      description:
-        "Morbi consectetur viverra urna, eu fringilla turpis faucibus sit amet. Suspendisse potenti. Donec at dui ac sapien eleifend hendrerit vel sit amet lectus.",
-      image: "alphabet-blocks.jpg",
-      price: 250,
-      quantity: 200,
-    },
+
     {
       name: "Ice Heal",
       category: categories[2]._id,
       description:
         "Morbi consectetur viverra urna, eu fringilla turpis faucibus sit amet. Suspendisse potenti. Donec at dui ac sapien eleifend hendrerit vel sit amet lectus.",
-      image: "alphabet-blocks.jpg",
+      image: "Ice_Heal.png",
       price: 250,
       quantity: 200,
     },
@@ -140,7 +123,7 @@ db.once("open", async () => {
       category: categories[2]._id,
       description:
         "Morbi consectetur viverra urna, eu fringilla turpis faucibus sit amet. Suspendisse potenti. Donec at dui ac sapien eleifend hendrerit vel sit amet lectus.",
-      image: "alphabet-blocks.jpg",
+      image: "Full_Heal.png",
       price: 250,
       quantity: 200,
     },
@@ -149,25 +132,16 @@ db.once("open", async () => {
       category: categories[3]._id,
       description:
         "Morbi consectetur viverra urna, eu fringilla turpis faucibus sit amet. Suspendisse potenti. Donec at dui ac sapien eleifend hendrerit vel sit amet lectus.",
-      image: "alphabet-blocks.jpg",
+      image: "repel.png",
       price: 350,
       quantity: 100,
-    },
-    {
-      name: "Super Repel",
-      category: categories[3]._id,
-      description:
-        "Morbi consectetur viverra urna, eu fringilla turpis faucibus sit amet. Suspendisse potenti. Donec at dui ac sapien eleifend hendrerit vel sit amet lectus.",
-      image: "alphabet-blocks.jpg",
-      price: 500,
-      quantity: 75,
     },
     {
       name: "Max Repel",
       category: categories[3]._id,
       description:
         "Morbi consectetur viverra urna, eu fringilla turpis faucibus sit amet. Suspendisse potenti. Donec at dui ac sapien eleifend hendrerit vel sit amet lectus.",
-      image: "alphabet-blocks.jpg",
+      image: "max_repel.png",
       price: 750,
       quantity: 25,
     },
@@ -176,7 +150,7 @@ db.once("open", async () => {
       category: categories[4]._id,
       description:
         "Morbi consectetur viverra urna, eu fringilla turpis faucibus sit amet. Suspendisse potenti. Donec at dui ac sapien eleifend hendrerit vel sit amet lectus.",
-      image: "alphabet-blocks.jpg",
+      image: "escape_rope.png",
       price: 550,
       quantity: 10,
     },
@@ -185,7 +159,7 @@ db.once("open", async () => {
       category: categories[4]._id,
       description:
         "Morbi consectetur viverra urna, eu fringilla turpis faucibus sit amet. Suspendisse potenti. Donec at dui ac sapien eleifend hendrerit vel sit amet lectus.",
-      image: "alphabet-blocks.jpg",
+      image: "poke-doll.png",
       price: 300,
       quantity: 5,
     },
@@ -202,7 +176,7 @@ db.once("open", async () => {
     password: "leoleo",
     orders: [
       {
-        items: [items[2]._id, items[4]._id, items[4]._id],
+        items: [items[0]._id, items[3]._id, items[3]._id, items[4]._id],
       },
     ],
   });
