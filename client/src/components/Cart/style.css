@@ -4,7 +4,7 @@
   right: 0;
   min-width: 20%;
   max-width: 30%;
-  max-height: 60%;
+  max-height: 100%;
   background-color: var(--light);
   overflow: auto;
   padding: 0.5rem;
@@ -33,13 +33,12 @@
 
 .cart-closed {
   position: fixed;
-  top: 3%;
-  right: 2.5%;
+  top: 1.7%;
+  right: 1.7%;
   font-size: 2rem;
   cursor: pointer;
   background: url("./pokeb1copy.png");
   background-size: cover;
-  /* border-radius: 50%; */
   padding: 0px;
   width: 60px;
   height: 60px;

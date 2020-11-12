@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Nav from "./components/Nav";
+// import Nav from "./components/Nav";
 import Detail from "./pages/Detail";
 import Signup from "./pages/Signup";
 import NoMatch from "./pages/NoMatch";
@@ -32,7 +32,6 @@ function App() {
       <Router>
         <div>
           <StoreProvider>
-            <Nav />
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/login" component={Login} />

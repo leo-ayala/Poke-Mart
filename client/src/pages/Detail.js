@@ -23,62 +23,61 @@ function Detail() {
   const { items, cart } = state;
 
   const addToCart = () => {
-    const itemInCart = cart.find((cartItem) => cartItem._id === id)
-  
+    const itemInCart = cart.find((cartItem) => cartItem._id === id);
+
     if (itemInCart) {
       dispatch({
         type: UPDATE_CART_QUANTITY,
         _id: id,
-        purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
+        purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1,
       });
       // if we're updating quantity, use existing item data and increment purchaseQuantity value by one
-      idbPromise('cart', 'put', {
+      idbPromise("cart", "put", {
         ...itemInCart,
-        purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
+        purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1,
       });
     } else {
       dispatch({
         type: ADD_TO_CART,
-        item: { ...currentItem, purchaseQuantity: 1 }
+        item: { ...currentItem, purchaseQuantity: 1 },
       });
       // if item isn't in the cart yet, add it to the current shopping cart in IndexedDB
-      idbPromise('cart', 'put', { ...currentItem, purchaseQuantity: 1 });
+      idbPromise("cart", "put", { ...currentItem, purchaseQuantity: 1 });
     }
-  }
+  };
 
   const removeFromCart = () => {
     dispatch({
       type: REMOVE_FROM_CART,
-      _id: currentItem._id
+      _id: currentItem._id,
     });
-  
+
     // upon removal from cart, delete the item from IndexedDB using the `currentItem._id` to locate what to remove
-    idbPromise('cart', 'delete', { ...currentItem });
+    idbPromise("cart", "delete", { ...currentItem });
   };
-  
 
   useEffect(() => {
     // already in global store
     if (items.length) {
-      setCurrentItem(items.find(item => item._id === id));
-    } 
+      setCurrentItem(items.find((item) => item._id === id));
+    }
     // retrieved from server
     else if (data) {
       dispatch({
         type: UPDATE_ITEMS,
-        items: data.items
+        items: data.items,
       });
-  
+
       data.items.forEach((item) => {
-        idbPromise('items', 'put', item);
+        idbPromise("items", "put", item);
       });
     }
     // get cache from idb
     else if (!loading) {
-      idbPromise('items', 'get').then((indexedItems) => {
+      idbPromise("items", "get").then((indexedItems) => {
         dispatch({
           type: UPDATE_ITEMS,
-          items: indexedItems
+          items: indexedItems,
         });
       });
     }
@@ -95,21 +94,17 @@ function Detail() {
           <p>{currentItem.description}</p>
 
           <p>
-            <strong>Price:</strong>${currentItem.price}{" "}
-            <button onClick={addToCart}>
-              Add to Cart
-            </button>
+            <strong>Price:</strong>₽{currentItem.price}{" "}
+            <button onClick={addToCart}>Add to Cart</button>
             <button
               disabled={!cart.find((p) => p._id === currentItem._id)}
-              onClick={removeFromCart}>
+              onClick={removeFromCart}
+            >
               Remove from Cart
             </button>
           </p>
 
-          <img
-            src={`/images/${currentItem.image}`}
-            alt={currentItem.name}
-          />
+          <img src={`/images/${currentItem.image}`} alt={currentItem.name} />
         </div>
       ) : null}
       {loading ? <img src={pokeball} alt="loading" /> : null}

@@ -42,7 +42,7 @@ const CartItem = ({ item }) => {
       </div>
       <div>
         <div>
-          {item.name}, ${item.price}
+          {item.name}, ₽{item.price}
         </div>
         <div>
           <span>Qty:</span>
@@ -56,10 +56,10 @@ const CartItem = ({ item }) => {
           <span
             className="remove"
             role="img"
-            aria-label="trash"
+            aria-label="discard"
             onClick={() => removeFromCart(item)}
           >
-            Remove All
+            Remove Item
           </span>
         </div>
       </div>

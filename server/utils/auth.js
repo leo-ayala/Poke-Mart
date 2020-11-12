@@ -1,14 +1,12 @@
 const jwt = require('jsonwebtoken');
 
-const secret = 'mysecretsshhhhh';
+const secret = 'BigSecret';
 const expiration = '2h';
 
 module.exports = {
   authMiddleware: function ({ req }) {
-    // allows token to be sent via req.body, req.query, or headers
     let token = req.body.token || req.query.token || req.headers.authorization;
 
-    // ["Bearer", "<tokenvalue>"]
     if (req.headers.authorization) {
       token = token
         .split(' ')
@@ -17,7 +15,6 @@ module.exports = {
     }
 
     console.log("token", token)
-
 
     if (!token) {
       return req;
