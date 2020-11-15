@@ -51,7 +51,7 @@ function ItemList() {
       {state.items.length ? (
         <div className="flex-row">
           {filterItems().map((item) => (
-            <ItemObject
+            <ItemObject 
               key={item._id}
               _id={item._id}
               image={item.image}

@@ -86,8 +86,10 @@ function Detail() {
   return (
     <>
       {currentItem ? (
-        <div className="container my-1">
+        <div className="container my-1 detail_main">
+          <div className= "back_button">
           <Link to="/">← Back to Items</Link>
+          </div>
 
           <h2>{currentItem.name}</h2>
 

@@ -36,13 +36,13 @@ function ItemObject(item) {
   };
 
   return (
-    <div className="card px-1 py-1">
+    <div className="card">
       <Link to={`/items/${_id}`}>
         <img alt={name} src={`/images/${image}`} />
         <p>{name}</p>
       </Link>
-      <div>
-        <div>
+      <div className= "item_name">
+        <div >
           {quantity} {pluralize("item", quantity)} in stock
         </div>
         <span>₽{price}</span>
@@ -51,8 +51,8 @@ function ItemObject(item) {
         {/* <div className="layer1 button_box">
           <Image className="" alt="" src={img} width="201" height="53" />
         </div> */}
-        <div className="cart_button">
-          <button onClick={addToCart}>Give to Pikachu!</button>
+        <div >
+          <button className="cart_button" onClick={addToCart}>Give to Pikachu!</button>
         </div>
       </div>
     </div>

@@ -52,9 +52,9 @@ function Nav(props) {
       </div>
       <div className= "logo">
       <Link to="/" onClick={refreshPage}>
-        <Image alt="" src={img1} width="70" height="70" />
-        <Image alt="" src={img2} min-width="150px" height="70" />
-        <Image alt="" src={img1} width="70" height="70" />
+        <Image alt="" src={img1} width="auto" height="70" />
+        <Image alt="" src={img2} width="auto" height="70" />
+        <Image alt="" src={img1} width="auto" height="70" />
       </Link>
       </div>
       <nav>{showNavigation()}</nav>
