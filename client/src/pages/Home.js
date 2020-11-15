@@ -1,9 +1,9 @@
 import React from "react";
 // import { useStoreContext } from "../utils/GlobalState";
 import ItemList from "../components/ItemList";
-import CategoryMenu from "../components/CategoryMenu";
+// import CategoryMenu from "../components/CategoryMenu";
 import Nav from "../components/Nav";
-import Backdrop from "../components/Backdrop/Backdrop";
+// import Backdrop from "../components/Backdrop/Backdrop";
 
 const Home = () => {
   // const [state] = useStoreContext();
