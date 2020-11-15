@@ -30,6 +30,6 @@ const itemSchema = new Schema({
   },
 });
 
-const Item = mongoose.model("Items", itemSchema);
+const Item = mongoose.model("Item", itemSchema);
 
 module.exports = Item;

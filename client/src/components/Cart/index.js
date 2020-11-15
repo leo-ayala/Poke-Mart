@@ -51,15 +51,16 @@ const Cart = () => {
   function submitCheckout() {
     const itemIds = [];
 
-    getCheckout({
-      variables: { items: itemIds },
-    });
-
     state.cart.forEach((item) => {
       for (let i = 0; i < item.purchaseQuantity; i++) {
         itemIds.push(item._id);
       }
     });
+
+    getCheckout({
+      variables: { cart_items: itemIds },
+    });
+
   }
 
   if (!state.cartOpen) {
@@ -86,9 +87,7 @@ const Cart = () => {
           <div className="flex-row space-between">
             <strong>Total: ₽{calculateTotal()}</strong>
             {Auth.loggedIn() ? (
-              <button onClick={submitCheckout}>
-                Checkout
-              </button>
+              <button onClick={submitCheckout}>Checkout</button>
             ) : (
               <span>(log in to check out)</span>
             )}

@@ -35,13 +35,17 @@ const typeDefs = gql`
     user: User
   }
 
+  type Checkout {
+    session: ID
+  }
+
   type Query {
     categories: [Category]
     items(category: ID, name: String): [Item]
     item(_id: ID!): Item
     user: User
     order(_id: ID!): Order
-    checkout(items: [ID]!): Checkout
+    checkout(cart_items: [ID]!): Checkout
   }
   
 
@@ -52,11 +56,6 @@ const typeDefs = gql`
     updateItem(_id: ID!, quantity: Int!): Item
     login(email: String!, password: String!): Auth
   }
-
-  type Checkout {
-    session: ID
-  }
-  
 `;
 
 module.exports = typeDefs;

@@ -62,8 +62,8 @@ export const QUERY_USER = gql`
 `;
 
 export const QUERY_CHECKOUT = gql`
-  query getCheckout($items: [ID]!) {
-    checkout(items: $items) {
+  query getCheckout($cart_items: [ID]!) {
+    checkout(cart_items: $cart_items) {
       session
     }
   }
