@@ -3,16 +3,13 @@ import React from "react";
 import ItemList from "../components/ItemList";
 import CategoryMenu from "../components/CategoryMenu";
 import Nav from "../components/Nav";
-import Backdrop from "../components/Backdrop/Backdrop"
-
+import Backdrop from "../components/Backdrop/Backdrop";
 
 const Home = () => {
   // const [state] = useStoreContext();
 
-
   // state.sideDrawerOpen = false
-  
-    
+
   //  const drawerToggleClickHandler= () => {
   //     this.setState((prevState) => {
   //       return {sideDrawerOpen: !prevState.sideDrawerOpen}
@@ -33,11 +30,11 @@ const Home = () => {
 
   return (
     <div className="container ">
-      <Nav 
-      // drawerClickHandler= {drawerToggleClickHandler} 
+      <Nav
+      // drawerClickHandler= {drawerToggleClickHandler}
       />
-        {/* <CategoryMenu /> */}
-        {/* <Backdrop /> */}
+      {/* <CategoryMenu />
+        <Backdrop />  */}
       <ItemList />
     </div>
   );
